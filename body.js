@@ -34,18 +34,31 @@ function stringToMatrix(arrayInput) {
     let columns = matrixArray[0].length;
 
     for (let row = 0; row < matrixArray.length; row++) {
+
+        for (let col = 0; col < matrixArray[row].length; col++) {
+            let cell = matrixArray[row][col];
+
+            if ((cell === "") || ((cell === " "))) {
+                matrixArray[row].splice(col, 1);
+                col -= 1;
+            } else {
+                matrixArray[row][col] = Number(cell);
+
+                if (isNaN(matrixArray[row][col])) {
+                    isMatrix = false;
+                }
+            }
+        }
+
+        if (row == 0) {
+            columns = matrixArray[0].length;
+        }
+
         if (matrixArray[row].length != columns) {
             isMatrix = false;
         }
 
-        for (let col = 0; col < matrixArray[row].length; col++) {
-            let cell = matrixArray[row][col];
-            matrixArray[row][col] = Number(cell);
-
-            if (isNaN(matrixArray[row][col])) {
-                isMatrix = false;
-            }
-        }
+        alert(matrixArray[row].join());
     }
 
     return isMatrix;
